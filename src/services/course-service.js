@@ -22,6 +22,26 @@ async function createCourse(data){
     }
 }
 
+async function getAllCourses(query){
+    let customFilter= {};
+    let sortFilter = [];
+
+    if(query.sort){
+        sortFilter.push(query.sort.split('_'));
+    }
+    if(query.name){
+        customFilter.name=query.name;
+    }
+    try {
+        const courses = await courserepositry.getAllCourses(customFilter,sortFilter);
+        return courses;
+    } catch (error) {
+        throw new AppError('Cannot fetch data of all the flights',StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+
+
 module.exports = {
-    createCourse
+    createCourse,
+    getAllCourses
 }

@@ -23,6 +23,22 @@ async function createCourse(req,res){
     }
 }
 
+async function getAllCourses(req,res){
+    try {
+        const courses = await CourseService.getAllCourses(req.query);
+        SuccessResponse.message ="Successfully get all courses";
+        SuccessResponse.data = courses;
+        return res.
+                status(StatusCodes.OK).
+                json(SuccessResponse);
+
+    } catch (error) {
+        ErrorResponse.error = error;
+        return res.status(error.statusCode).json(ErrorResponse);
+    }
+} 
+
 module.exports = {
-    createCourse
+    createCourse,
+    getAllCourses
 }
