@@ -8,7 +8,6 @@ async function createCourse(req,res){
         const course = await CourseService.createCourse({
             name:req.body.name,
             description:req.body.description,
-            userId:req.body.userId,
             price:req.body.price,
             duration:req.body.duration
         });
