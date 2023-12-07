@@ -1,10 +1,8 @@
-const SEAT_TYPE = {
-    BUSINESS:'business',
-    ECONOMY:'economy',
-    PREMIUM_ECONOMY:'premium-economy',
-    FIRST_CLASS:'first-class'
+const USER_TYPE = {
+    STUDENT:'student',
+    PROFESSIONAL:'proffesional'
 }
 
 module.exports = {
-    SEAT_TYPE
+    USER_TYPE
 }

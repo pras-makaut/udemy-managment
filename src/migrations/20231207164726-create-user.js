@@ -1,34 +1,37 @@
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
+const {Enums} = require('../utils/common');
+const {STUDENT,PROFESSIONAL} = Enums.USER_TYPE;
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Courses', {
+    await queryInterface.createTable('Users', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      firstName: {
         type: Sequelize.STRING,
-        allowNull:false,
-        unique:true
+        allowNull: false,
       },
-      description: {
+      lastNmae: {
         type: Sequelize.STRING,
+        allowNull: false,
+      },
+      bio: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      userType: {
+        type: Sequelize.ENUM,
+        values:[STUDENT,PROFESSIONAL],
+        defaultValue:STUDENT,
         allowNull:false
       },
-      price: {
+      experince: {
         type: Sequelize.INTEGER,
-        allowNull:false
-      },
-      authorName:{
-        type: Sequelize.STRING,
-        allowNull:false
-      },
-      duration: {
-        type: Sequelize.STRING,
-        allowNull:false
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
@@ -41,6 +44,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Courses');
+    await queryInterface.dropTable('Users');
   }
 };

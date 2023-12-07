@@ -27,6 +27,10 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.INTEGER,
       allowNull:false,
     },
+    authorName:{
+      type: DataTypes.STRING,
+      allowNull:false
+    },
     duration: {
       type:DataTypes.STRING,
       allowNull:false,
