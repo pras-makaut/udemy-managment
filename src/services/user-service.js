@@ -22,6 +22,20 @@ async function createUser(data){
     }
 }
 
+async function updateUser(id,data){
+    try {
+        const updatedUser = await userRepository.update(id,data);
+        return updatedUser;
+    } catch (error) {
+        if(error.statusCode == StatusCodes.NOT_FOUND){
+            throw new AppError(error.message,error.statusCode);
+        }
+        throw new AppError('Cannot update the airpane',StatusCodes.INTERNAL_SERVER_ERROR);
+        
+    }
+}
+
 module.exports = {
-    createUser
+    createUser,
+    updateUser
 }

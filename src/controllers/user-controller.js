@@ -24,6 +24,22 @@ async function createUser(req,res){
     }
 }
 
+async function updateUser(req,res){
+    try {
+        const loginUser = req.headers['id'];
+        const updatedUser = await UserService.updateUser(loginUser,req.body);
+        SuccessResponse.message ="Successfully updated a user";
+            SuccessResponse.data = updatedUser;
+            return res.
+                    status(StatusCodes.OK).
+                    json(SuccessResponse);
+    } catch (error) {
+
+        ErrorResponse.error = error;
+        return res.status(error.statusCode).json(ErrorResponse);
+    }
+}
 module.exports = {
-    createUser
+    createUser,
+    updateUser
 }

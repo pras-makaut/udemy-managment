@@ -7,6 +7,4 @@ router.get('/info',InfoController.info);
 router.use('/courses',CourseRoutes);
 router.use('/users',UserRoutes);
 
-
-
 module.exports = router;
