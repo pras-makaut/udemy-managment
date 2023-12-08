@@ -1,9 +1,9 @@
-const {UserRepository} = require('../repositories');
+const {UserRepository,CourseRepository} = require('../repositories');
 const {StatusCodes} = require('http-status-codes');
 const AppError = require('../utils/errors/app-error')
 
 const userRepository = new UserRepository();
-
+const courseRepository = new CourseRepository();
 async function createUser(data){
     try {
         const users = await userRepository.createData(data);
@@ -31,10 +31,8 @@ async function updateUser(id,data){
             throw new AppError(error.message,error.statusCode);
         }
         throw new AppError('Cannot update the airpane',StatusCodes.INTERNAL_SERVER_ERROR);
-        
     }
 }
-
 async function getUserCourses(id){
     try {
         const user = await userRepository.get(id);
@@ -49,8 +47,31 @@ async function getUserCourses(id){
     }
 }
 
+async function enrollUserCourses(userId,courseId){
+    try {
+        const user = await userRepository.get(userId);
+        if(!user){
+            throw new AppError('No user found with given id',StatusCodes.NOT_FOUND);
+        } 
+        const course = await courseRepository.get(courseId);
+        if(!course){
+            throw new AppError('No course found with given id',StatusCodes.NOT_FOUND);
+        } 
+        const result = user.addCourse(course);
+        return result;
+    } catch (error) {
+        if(error instanceof AppError) throw error;
+        if(error.statusCode == StatusCodes.NOT_FOUND){
+            throw new AppError(error.message,error.statusCode);
+        }
+        throw new AppError('Cannot add user to the course',StatusCodes.INTERNAL_SERVER_ERROR);
+        
+    }
+}
+
 module.exports = {
     createUser,
     updateUser,
-    getUserCourses
+    getUserCourses,
+    enrollUserCourses
 }

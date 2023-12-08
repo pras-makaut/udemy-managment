@@ -55,8 +55,24 @@ async function getUserCourses(req,res){
         return res.status(error.statusCode).json(ErrorResponse);
     }
 }
+async function enrollUserCourses(req,res){
+    try {
+        const loginUser = req.headers['id'];
+        const results = await UserService.enrollUserCourses(loginUser,req.params.id);
+        SuccessResponse.message =`Successfully add course with course id ${req.params.id} with useres with user id ${loginUser}`;
+            SuccessResponse.data = results;
+            return res.
+                    status(StatusCodes.OK).
+                    json(SuccessResponse);
+    } catch (error) {
+
+        ErrorResponse.error = error;
+        return res.status(error.statusCode).json(ErrorResponse);
+    }
+}
 module.exports = {
     createUser,
     updateUser,
-    getUserCourses
+    getUserCourses,
+    enrollUserCourses
 }
