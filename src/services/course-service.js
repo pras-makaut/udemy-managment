@@ -40,8 +40,23 @@ async function getAllCourses(query){
     }
 }
 
+async function getCourseById(id){
+    try {
+        const course = await courserepositry.get(id);
+        return course;
+    } catch (error) {
+        if(error.statusCode == StatusCodes.NOT_FOUND){
+            throw new AppError(error.message,error.statusCode);
+        }
+        throw new AppError(`Cannot fetch the course with id ${id}`,StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+
+
+
 
 module.exports = {
     createCourse,
-    getAllCourses
+    getAllCourses,
+    getCourseById
 }

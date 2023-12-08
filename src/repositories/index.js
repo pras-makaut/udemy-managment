@@ -1,3 +1,4 @@
 module.exports = {
-    CourseRepository : require('./courserepositry')
+    CourseRepository : require('./courserepositry'),
+    UserRepository : require('./userrepository')
 }

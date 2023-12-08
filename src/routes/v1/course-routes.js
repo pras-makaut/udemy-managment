@@ -7,4 +7,8 @@ const router= express.Router();
 router.post('/',CourseController.createCourse);
 router.get('/',CourseController.getAllCourses);
 
+// api/v1/airports/:id
+
+router.get('/:id',CourseController.getCourseById);
+
 module.exports = router;

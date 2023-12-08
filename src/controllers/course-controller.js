@@ -38,7 +38,22 @@ async function getAllCourses(req,res){
     }
 } 
 
+async function getCourseById(req,res){
+    try {
+        const course = await CourseService.getCourseById(req.params.id);
+        SuccessResponse.message =`Successfully get the Course with ${req.params.id} id`;
+        SuccessResponse.data = course;
+        return res.
+                status(StatusCodes.OK).
+                json(SuccessResponse);        
+    } catch (error) {
+        ErrorResponse.error = error;
+        return res.status(error.statusCode).json(ErrorResponse);
+    }
+}
+
 module.exports = {
     createCourse,
-    getAllCourses
+    getAllCourses,
+    getCourseById
 }
