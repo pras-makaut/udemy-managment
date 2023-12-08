@@ -52,11 +52,24 @@ async function getCourseById(id){
     }
 }
 
+async function deleteCourse(id){
+    try {
+        const course = await courserepositry.destroy(id); 
+        return course;
+    } catch (error) {
+        if(error.statusCode == StatusCodes.NOT_FOUND){
+            throw new AppError(error.message,error.statusCode);
+        }
+        throw new AppError('Cannot delete the course',StatusCodes.INTERNAL_SERVER_ERROR);
+    }
+}
+
 
 
 
 module.exports = {
     createCourse,
     getAllCourses,
-    getCourseById
+    getCourseById,
+    deleteCourse
 }

@@ -51,9 +51,23 @@ async function getCourseById(req,res){
         return res.status(error.statusCode).json(ErrorResponse);
     }
 }
+async function deleteCourse(req,res){
+    try {
+        const course = await CourseService.deleteCourse(req.params.id);
+        SuccessResponse.message =`Successfully delete the course with ${req.params.id} id`;
+        SuccessResponse.data = course;
+        return res.
+                status(StatusCodes.OK).
+                json(SuccessResponse);        
+    } catch (error) {
+        ErrorResponse.error = error;
+        return res.status(error.statusCode).json(ErrorResponse);
+    }
+}
 
 module.exports = {
     createCourse,
     getAllCourses,
-    getCourseById
+    getCourseById,
+    deleteCourse
 }
