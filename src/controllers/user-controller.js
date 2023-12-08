@@ -39,7 +39,24 @@ async function updateUser(req,res){
         return res.status(error.statusCode).json(ErrorResponse);
     }
 }
+
+async function getUserCourses(req,res){
+    try {
+        const loginUser = req.headers['id'];
+        const results = await UserService.getUserCourses(loginUser);
+        SuccessResponse.message =`Successfully get user with user id ${loginUser} with all courses`;
+            SuccessResponse.data = results;
+            return res.
+                    status(StatusCodes.OK).
+                    json(SuccessResponse);
+    } catch (error) {
+
+        ErrorResponse.error = error;
+        return res.status(error.statusCode).json(ErrorResponse);
+    }
+}
 module.exports = {
     createUser,
-    updateUser
+    updateUser,
+    getUserCourses
 }

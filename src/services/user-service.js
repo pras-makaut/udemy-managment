@@ -35,7 +35,22 @@ async function updateUser(id,data){
     }
 }
 
+async function getUserCourses(id){
+    try {
+        const user = await userRepository.get(id);
+        const results = await user.getCourse();
+        return results;
+    } catch (error) {
+        if(error.statusCode == StatusCodes.NOT_FOUND){
+            throw new AppError(error.message,error.statusCode);
+        }
+        throw new AppError('Cannot update the airpane',StatusCodes.INTERNAL_SERVER_ERROR);
+        
+    }
+}
+
 module.exports = {
     createUser,
-    updateUser
+    updateUser,
+    getUserCourses
 }

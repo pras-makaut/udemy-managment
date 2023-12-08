@@ -4,7 +4,9 @@ const {UserController} = require('../../controllers')
 
 const router= express.Router();
 
+router.get('/courses',UserController.getUserCourses);
 router.post('/',UserController.createUser);
 router.patch('/',UserController.updateUser);
+
 
 module.exports = router;
